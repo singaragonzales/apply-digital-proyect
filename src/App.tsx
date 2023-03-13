@@ -16,13 +16,12 @@ function App() {
   const [currentFavPage, setCurrentFavPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [posts, setPosts] = useState([])
-  const [response, setResponse] = useState("")
   const [howManyPages, setHowManyPages] = useState(10) 
   const [favorites, setFavorites] = useState([]) 
   const [showFavorites, setShowFavorites] = useState([]) 
 
   const changeOptions = () => {
-    setSelectedOption(selectedOption === "All" ? "My Faves" : "All")
+    setSelectedOption(selectedOption === "All" ? "My faves" : "All")
   }
 
   React.useEffect(() => {
@@ -60,7 +59,6 @@ function App() {
         setLoading(false)
         setPosts(filterArray)
         setHowManyPages(response.data.nbPages)
-        setResponse(response.data.query)
       }
     });
   }
@@ -116,47 +114,56 @@ function App() {
         <h1 className='ad_header-title'>HACKER NEWS</h1>
       </div>
       <div className="ad_main-container">
-        <div className='ad_selection'>
-          <button onClick={() => changeOptions()} className={`${selectedOption === "All" ? "selected-button" : "not-selected-button"}`}>All</button>
-          <button onClick={() => changeOptions()} className={`${selectedOption === "My Faves" ? "selected-button" : "not-selected-button"}`}>My Faves</button>
-        </div>
-        {selectedOption ===  "All" ? (
-          <>
-            <SelectWithImages 
-              getNews={(optionName) => {
-                setCurrentPage(1)
-                setLanguageOption(optionName)
-                fillDataCard(optionName, 1)
-              }}
-            />
-            <div className='ad_card-container'>
-              {posts.map((post) => (
-                <CardComponent cardData={post}
-                favorites={favorites}
-                isFavorite={checkFavorite(post) || false} sendFavorite={(dataCard, favorite) => markAsFavorite(dataCard, favorite)}/>
-              ))}
-            </div>
-            {response && (
-              <Pagination 
-                loading={loading}
-                pages={howManyPages}
-                setCurrentPage={setCurrentPage} 
-                currentPage={currentPage}
-                sendCurrentPage={(page, direction) => {
-                  fillDataCard(languageOption, page, direction)
+        <div>
+          <div className='ad_selection'>
+            <button onClick={() => changeOptions()} className={`${selectedOption === "All" ? "selected-button" : "not-selected-button"}`}>All</button>
+            <button onClick={() => changeOptions()} className={`${selectedOption === "My faves" ? "selected-button" : "not-selected-button"}`}>My faves</button>
+          </div>
+          {selectedOption ===  "All" ? (
+            <>
+              <SelectWithImages 
+                getNews={(optionName) => {
+                  setCurrentPage(1)
+                  setLanguageOption(optionName)
+                  fillDataCard(optionName, 1)
                 }}
               />
-            )}
-          </>
-        ) : (
+              <div className='ad_card-container'>
+                {posts.map((post) => (
+                  <CardComponent 
+                    cardData={post}
+                    isFavorite={checkFavorite(post) || false} 
+                    sendFavorite={(dataCard, favorite) => markAsFavorite(dataCard, favorite)}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className='ad_card-container'>
+                {showFavorites.map((post) => (
+                  <CardComponent 
+                    cardData={post}
+                    isFavorite={checkFavorite(post) || false} 
+                    sendFavorite={(dataCard, favorite) => markAsFavorite(dataCard, favorite)}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        {selectedOption ===  "All" ? (
+          <Pagination 
+            loading={loading}
+            pages={howManyPages}
+            setCurrentPage={setCurrentPage} 
+            currentPage={currentPage}
+            sendCurrentPage={(page, direction) => {
+              fillDataCard(languageOption, page, direction)
+            }}
+          />
+        ): (
           <>
-            <div className='ad_card-container'>
-              {showFavorites.map((post) => (
-                <CardComponent cardData={post}
-                favorites={favorites}
-                isFavorite={checkFavorite(post) || false} sendFavorite={(dataCard, favorite) => markAsFavorite(dataCard, favorite)}/>
-              ))}
-            </div>
             {showFavorites.length !== 0 && (
               <Pagination 
                 loading={loading}
@@ -171,7 +178,6 @@ function App() {
             )}
           </>
         )}
-        
       </div>
     </div>
   );

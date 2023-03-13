@@ -3,14 +3,12 @@ import { Clock, Favorite, NoFavorite } from '../assets/icons';
 
 interface CardComponentProps {
     cardData: any;
-	favorites: any;
     isFavorite: boolean;
     sendFavorite(cardData: any, isFavorite: boolean): void;
 }
 const CardComponent: React.FunctionComponent<CardComponentProps> = ({
     cardData,
     isFavorite,
-	favorites,
 	sendFavorite
 }: CardComponentProps) => {
 
@@ -18,8 +16,12 @@ const CardComponent: React.FunctionComponent<CardComponentProps> = ({
 		var diff = (new Date().getTime() - new Date(date).getTime()) / 1000;
 		diff /= 3600;
 		let diference = Math.abs(Math.round(diff))
-		//Days
 		if(diference < 24){
+			if(diference === 0){
+				let minutes = ((new Date().getTime() - new Date(date).getTime()) / 1000) / 60
+				let mins = Math.abs(Math.round(minutes))
+				return `${mins} ${mins === 1 ? "minute" : "minutes"} ago`
+			}
 			return `${diference} ${diference === 1 ? "hour" : "hours"} ago`
 		}
 		else{

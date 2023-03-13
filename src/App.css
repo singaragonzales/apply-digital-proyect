@@ -8,6 +8,9 @@
 .ad_page {
   text-align: center;
   background-color: var(--main-bg-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .ad_header-page{
   text-align: left;
@@ -29,7 +32,11 @@
 }
 
 .ad_main-container{
-  padding: 1rem 10rem;
+  padding: 0rem 10rem;
+  height: calc(100vh - 98px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ad_selection{
@@ -84,9 +91,6 @@
   }
   .ad_selection{
     margin: 2rem 0;
-  }
-  .ad_main-container{
-    padding: 1rem 3rem;
   }
   .ad_selection-options{
     align-items: center;
@@ -186,5 +190,9 @@
 @media (max-width: 1024px) {
   .ad_card-container{
     grid-template-columns: repeat(1, 1fr);
+  }
+  .ad_main-container{
+    padding: 1rem 3rem;
+    height: 100%;
   }
 }

@@ -1,6 +1,7 @@
 .selector{
     width: 250px;
     position: relative;
+    margin-bottom: 15px;
 }
 
 #selectField{
