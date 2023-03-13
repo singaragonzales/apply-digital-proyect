@@ -13,31 +13,37 @@ const CardComponent: React.FunctionComponent<CardComponentProps> = ({
 	sendFavorite
 }: CardComponentProps) => {
 
-const getHoursDate = (date: string) => {
-	let dateDiff: number = (new Date().getTime() - new Date(date).getTime()) / 1000;
-	dateDiff /= 3600;
-	let diference = Math.abs(Math.round(dateDiff))
+	/*** 
+		*getHoursDate: This function shows the "time ago" of each card component
+                        (requires:
+							- date: The creation date of each news item
+						)
+						(returns: The time pased ex:(years ago, days ago, hours ago, minutes, ago)
+	*/
+	const getHoursDate = (date: string) => {
+		let dateDiff: number = (new Date().getTime() - new Date(date).getTime()) / 1000;
+		dateDiff /= 3600;
+		let hours = Math.abs(Math.round(dateDiff))
 
-	if(diference < 24){
-		if(diference === 0){
-			let minutes = ((new Date().getTime() - new Date(date).getTime()) / 1000) / 60
-			let mins = Math.abs(Math.round(minutes))
-			return `${mins} ${mins === 1 ? "minute" : "minutes"} ago`
-		}
-		return `${diference} ${diference === 1 ? "hour" : "hours"} ago`
-	}
-	else{
-		diference /= 24;
-		let days = Math.abs(Math.round(diference))
-		if(days < 365){
-			return `${days} ${days === 1 ? "day" : "days"} ago`
+		if(hours < 24){
+			if(hours === 0){
+				let minutes = ((new Date().getTime() - new Date(date).getTime()) / 1000) / 60
+				let mins = Math.abs(Math.round(minutes))
+
+				return `${mins} ${mins === 1 ? "minute" : "minutes"} ago`
+			}
+			return `${hours} ${hours === 1 ? "hour" : "hours"} ago`
 		}else{
-			days /= 365;
-			let years = Math.abs(Math.round(days))
-			return `${years} ${years === 1 ? "year" : "years"} ago`
+			let days = Math.abs(Math.round(hours / 24))
+			if(days < 365){
+				return `${days} ${days === 1 ? "day" : "days"} ago`
+			}else{
+				let years = Math.abs(Math.round(days / 365));
+				
+				return `${years} ${years === 1 ? "year" : "years"} ago`
+			}
 		}
 	}
-}
 
 	return (
 		<div className='ad_card-body'>

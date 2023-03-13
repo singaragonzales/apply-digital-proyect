@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from "axios";
 import CardComponent from './components/CardComponent/CardComponent';
 import SelectWithImages from './components/SelectImages/SelectWithImages';
@@ -8,17 +8,21 @@ import './App.css';
 
 function App() {
 
-	const [loading, setLoading] = useState(false)
-	const [pageButton, setPageButton] = useState("All")
-	const [languageOption, setLanguageOption] = useState("")
-	const [currentPage, setCurrentPage] = useState(1)
-	const [currentFavPage, setCurrentFavPage] = useState(1)
+	const [loading, setLoading] = React.useState(false)
+	const [pageButton, setPageButton] = React.useState("All")
+	const [languageOption, setLanguageOption] = React.useState("")
+	const [currentPage, setCurrentPage] = React.useState(1)
+	const [currentFavPage, setCurrentFavPage] = React.useState(1)
 	
-	const [posts, setPosts] = useState([])
-	const [howManyPages, setHowManyPages] = useState(10) 
-	const [favorites, setFavorites] = useState([]) 
-	const [showFavorites, setShowFavorites] = useState([]) 
+	const [posts, setPosts] = React.useState([])
+	const [howManyPages, setHowManyPages] = React.useState(10) 
+	const [favorites, setFavorites] = React.useState([]) 
+	const [showFavorites, setShowFavorites] = React.useState([]) 
 
+	/*** 
+		Check the selected option on the localStorage and make the API call based on the result, and fill the favorites.
+		If the localstorage is empty, you need to select one option to see the data.
+	*/
 	React.useEffect(() => {
 		if(localStorage.getItem("languageSelected") !== null && localStorage.getItem("languageSelected") !== "Select Your News"){
 			const option = options.find(e => e.name === localStorage.getItem("languageSelected"));
@@ -124,8 +128,9 @@ function App() {
 	const PageButtons = () => {
 		return(
 			<div className='ad_selection'>
-				{PAGE_BUTTON.map(btn => (
+				{PAGE_BUTTON.map((btn, i) => (
 					<button 
+						key={`page-btn-${i}`}
 						onClick={() => setPageButton(btn)} 
 						className={`${pageButton === btn ? "selected-button" : "not-selected-button"}`}
 					>
@@ -138,8 +143,9 @@ function App() {
 	const ReusableCardComponent = ({cardData} : any) => {
 		return(
 			<div className='ad_card-container'>
-				{cardData.map((post: any) => (
+				{cardData.map((post: any, i:number) => (
 					<CardComponent 
+						key={`card-comp-${i}`}
 						cardData={post}
 						isFavorite={checkFavorite(post) || false} 
 						sendFavorite={(dataCard) => markAsFavorite(dataCard)}
