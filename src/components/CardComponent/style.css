@@ -1,0 +1,86 @@
+.ad_card-container{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 8px 50px;
+	grid-auto-rows: minmax(100px, auto);
+	margin: 0 auto;
+	justify-items: center;
+}
+
+.ad_card-body{
+	width: 100%;
+	height: 5.625rem;
+	margin: 1rem 0;
+	border-radius: 6px;
+	border: solid 1px #979797;
+	background-color: var(--main-bg-color);
+	display: flex;
+	justify-content: space-between;
+}
+
+.ad_card-body:hover{
+	opacity: 0.6;
+	cursor: pointer;
+}
+
+.ad_card-favoriteIcon{
+	padding: 2.188rem 1.375rem 2.063rem;
+	border-radius: 0px 4px 4px 0px;
+	background-color: #e3e3e3;
+}
+
+.ad_card-info{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: baseline;
+	padding-left: 20px;
+}
+
+.ad_card-info-date{
+	font-family: Roboto;
+	font-size: 0.688rem;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	color: #767676;
+	display: flex;
+	align-items: center;
+}
+
+.ad_card-info-date img{
+	margin-right: 5px;
+}
+
+.ad_card-info-title{
+	font-family: Roboto;
+	text-align: left;
+	font-size: 0.875rem;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.43;
+	letter-spacing: 0.25px;
+	color: #6b6b6b;
+	margin-top: 5px;
+}
+
+.ad_card-info p{
+	font-family: Roboto;
+	font-size: 0.875rem;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.43;
+	letter-spacing: 0.25px;
+	color: var(--brownish-grey);
+}
+
+@media (max-width: 1024px) {
+	.ad_card-container{
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

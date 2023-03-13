@@ -32,7 +32,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     third: "->"
   }
   
-
   React.useEffect(() => {
     let tempNumberOfPages:any = [...arrOfCurrButtons]
 
