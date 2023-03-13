@@ -20,9 +20,9 @@
 }
   
 .pagination-container button.active {
-    background-color: #1890ff;
+    background-color: var(--button-selected-color);
     color: white;
-    border: 1px solid #1890ff;
+    border: 1px solid var(--button-selected-color);
 }
   
 .pagination-container button.disabled { 
